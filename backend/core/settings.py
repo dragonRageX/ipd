@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'cloudinary',
     #created apps
     'user',
-    'room',
 ]
 
 MIDDLEWARE = [
