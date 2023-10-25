@@ -1,0 +1,51 @@
+:root {
+    --rad: 0.7rem;
+    --dur: 0.3s;
+    --color-dark: #3c3b3b;
+    --color-light: #fff;
+    --color-brand: #57bd84;
+    --font-fam: "Lato", sans-serif;
+    --height: 5rem;
+    --btn-width: 6rem;
+    --bez: cubic-bezier(0, 0, 0.43, 1.49);
+  }
+  body{
+
+    background-color: #3c3b3b;
+    
+  }
+.header a{
+    background-color: #3c3b3b;
+    font-size: 25px ;
+    font-weight : 1000;
+    color: rgb(255, 255, 255);
+    list-style: 1.1;
+    margin: 0 0 8px;
+    position:relative;
+    height : 100vh;
+    width : 100% ; 
+    display:block;
+    width: 100%;
+    margin: auto;
+    height : 50px;
+ 
+}
+
+.header b{
+    background-color: #3c3b3b;
+    font-size: 25px ;
+    font-weight : 750;
+    color: rgb(17, 4, 129);
+    list-style: 1.1;
+    margin: 0 0 8px;
+    position:relative;
+    height : 100vh;
+    width : 100% ; 
+    display:block;
+   
+}
+.about {
+position: relative;
+font-size: large;
+}
+  
