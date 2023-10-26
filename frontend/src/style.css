@@ -9,43 +9,115 @@
     --btn-width: 6rem;
     --bez: cubic-bezier(0, 0, 0.43, 1.49);
   }
-  body{
 
-    background-color: #3c3b3b;
-    
-  }
+body{
+  background-color: #3c3b3b;
+}
+  
 .header a{
     background-color: #3c3b3b;
-    font-size: 25px ;
+    font-size: 37px ;
     font-weight : 1000;
     color: rgb(255, 255, 255);
     list-style: 1.1;
-    margin: 0 0 8px;
-    position:relative;
+    margin: 0 0 0 0px;
+    position:0 0 0 0px;
     height : 100vh;
     width : 100% ; 
     display:block;
     width: 100%;
     margin: auto;
-    height : 50px;
+    height : 60px;
  
 }
+.container{
+  background-color: #3c3b3b;
+  display: flex;
+  width:100%;
+  height : 200px;
+}
 
-.header b{
+.container .left {
     background-color: #3c3b3b;
     font-size: 25px ;
     font-weight : 750;
-    color: rgb(17, 4, 129);
+    color: rgb(60, 179, 218);
     list-style: 1.1;
     margin: 0 0 8px;
     position:relative;
-    height : 100vh;
-    width : 100% ; 
-    display:block;
+    height : 200px;
+    width : 100% ;  
+   flex:1;
+    
    
 }
+
+.container .right{
+  position: relative;
+  background-color: #3c3b3b;
+  
+  width: 100%; 
+  flex:1;
+}
+
+
+
 .about {
 position: relative;
 font-size: large;
+
+display: grid;
+grid-template-columns: repeat(2,1fr);
+align-items: normal;
+gap:1.5rem;
+
+}
+
+.box{
+  background: rgb(72, 174, 226);
+  padding: 35px 45px;
+  border-radius: 8 px;
+  transition: all .45 ease;
+}
+
+.s-icons i{
+font-size:32px;
+margin-bottom:20px;
+}
+
+.box h3{
+  font-size:24px;
+  font-weight:600;
+  color:rgb(244, 244, 103);
+  margin-bottom: 15px;
+}
+
+.box p {
+  /* color : var(--second-bg-color); */
+  font-size: 1 rem;
+  line-height: 1.8;
+  margin-bottom: 25 px;
+}
+
+.read{
+  display: inline-block;
+  padding:8px 18px;
+  background: rgb(49, 45, 162);
+  color: var(--second-color);
+  font-size:14 px;
+  font-weight: 500;
+  border-radius:8px;
+  transition: all .45 ease;
+
+}
+
+.read:hover{
+  letter-spacing: 1px;
+  background: rgb(226, 163, 18);
+  color:white;
+}
+.box:hover{
+  transform: translateY(-8px);
+  cursor:pointer;
 }
   
