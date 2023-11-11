@@ -1,35 +1,30 @@
-import logo from './logo.svg';
+import {
+   RouterProvider,
+   createBrowserRouter,
+   createRoutesFromElements,
+   Route,
+   Link
+} from "react-router-dom"
 import './App.css';
-import LoginPage from './LoginPage';
-import Home_page from './Home_page';
-import { useEffect } from 'react';
+import Layout from "./components/Layout";
+import Home from "./pages/Home"
+import Register from "./pages/Register";
+import LoginPage from './pages/Login';
+import NotFound from "./pages/NotFound"
 
-
+let router = createBrowserRouter(createRoutesFromElements(
+   <Route path="/" element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="register" element={<Register />} />
+      <Route path="login" element={<LoginPage />} />
+      <Route path="features" element={<Home />} />
+      <Route path="*" element={<NotFound />} />
+   </Route>
+))
 
 function App() {
-   useEffect(() => {
-      document.title = "Parking Guardian";
-    }, []);
    return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
-    <Home_page/>
-   
- 
+      <RouterProvider router={router} />
    );
 }
 
