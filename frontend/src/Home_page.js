@@ -60,7 +60,7 @@ const Home_page = () => {
         <h3>Current Location</h3>
         <p>
 
-           
+            a push test by dhruvin and ayush 
         </p>
 
         <a href="/'" class="read"> Read More</a>
