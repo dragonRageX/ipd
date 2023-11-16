@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import './style.css'; // or import './styles.scss';
 import pic_1 from './images/pic_1.png'
 
@@ -47,8 +47,6 @@ const Home_page = () => {
   </div>
 
     </div>
-
-
 <div className='features'>
   <h4>𝑭𝒆𝒂𝒕𝒖𝒓𝒆𝒔 𝑾𝒆 𝑷𝒓𝒐𝒗𝒊𝒅𝒆</h4>
   <div class="box">
@@ -141,4 +139,4 @@ const Home_page = () => {
   )
 }
 
-export default Home_page
+export default Home_page;
