@@ -109,7 +109,7 @@ class NearestLocationView(APIView):
 
 class CheckParkingZoneView(APIView):
     
-    def get(self, request):
+    def post(self, request):
         
         lon = float(request.data['lon'])
         lat = float(request.data['lat'])
@@ -125,7 +125,7 @@ class CheckParkingZoneView(APIView):
         if in_no_parking_zone:
             return Response({'status': 'In no parking zone'}, status=200)
         else:
-            return Response({'status': 'Not in no parking zone'}, status=200)
+            return Response({'status': 'in parking zone'}, status=200)
     
 class LocationByUserAPIView(GenericAPIView):
     queryset = LocationByUser.objects.all()
