@@ -10,7 +10,7 @@ const AddLocationPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     category: '',
-    coordinates: [19.182381002086892,72.85872142939337,],
+    coordinates: '',
   });
 
   const handleMapClick = (e) => {

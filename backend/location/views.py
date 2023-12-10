@@ -46,8 +46,37 @@ class LoadCSV(GenericAPIView):
 #         print(serializer.data)
 #         return Response(serializer.data) 
     
+# class NearestLocationView(APIView):
+#     def post(self, request):
+#         print(request.data['lat'])
+#         # Get the latitude and longitude from the request
+#         lat = float(request.data['lat'])
+#         lon = float(request.data['lon'])
+#         spot = request.data['spot']
+#         print(lat, lon)
+#         user_coordinates = Point(lon, lat, srid=4326)  # Assuming WGS 84 coordinate system
+#         nearest_locations = Location2.objects.filter(category=spot).annotate(
+#             distance=functions.Distance('coordinates', user_coordinates)
+#         ).order_by('distance')[:10]
+
+#         if nearest_locations:
+#             # Create a list to store serialized data for each location
+#             serialized_data_list = []
+#             for location in nearest_locations:
+#                 # Calculate the distance in kilometers for each location
+#                 distance_km = location.distance.km
+#                 # Create a dictionary containing both the Location2 instance and the distance
+#                 serialized_data = {'instance': location, 'distance_km': distance_km}
+#                 serialized_data_list.append(serialized_data)
+
+#             # Serialize the data and return it as a response
+#             serializer = LocationSerializer(serialized_data_list, many=True)
+#             return Response(serializer.data)
+#         else:
+#             # Handle the case when no nearest location is found
+#             return Response({'detail': 'No locations found'}, status=404)
 class NearestLocationView(APIView):
-    def get(self, request):
+    def post(self, request):
         print(request.data['lat'])
         # Get the latitude and longitude from the request
         lat = float(request.data['lat'])
@@ -57,20 +86,26 @@ class NearestLocationView(APIView):
         user_coordinates = Point(lon, lat, srid=4326)  # Assuming WGS 84 coordinate system
         nearest_locations = Location2.objects.filter(category=spot).annotate(
             distance=functions.Distance('coordinates', user_coordinates)
-        ).order_by('distance')[:10]
+        ).order_by('distance')[:20]
 
-        if nearest_locations:
-            # Create a list to store serialized data for each location
-            serialized_data_list = []
-            for location in nearest_locations:
+        unique_coordinates = set()  # To track unique coordinates
+        unique_nearest_locations = []  # To store distinct records
+
+        for location in nearest_locations:
+            coordinates_tuple = tuple(location.coordinates.coords)
+            if coordinates_tuple not in unique_coordinates:
+                unique_coordinates.add(coordinates_tuple)
                 distance_km = location.distance.km
                 serialized_data = {'instance': location, 'distance_km': distance_km}
-                serialized_data_list.append(serialized_data)
-            serializer = LocationSerializer(serialized_data_list, many=True)
+                unique_nearest_locations.append(serialized_data)
+
+        if unique_nearest_locations:
+            # Serialize the data and return it as a response
+            serializer = LocationSerializer(unique_nearest_locations, many=True)
             return Response(serializer.data)
         else:
+            # Handle the case when no nearest location is found
             return Response({'detail': 'No locations found'}, status=404)
-
 
 class CheckParkingZoneView(APIView):
     

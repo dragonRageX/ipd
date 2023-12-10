@@ -15,7 +15,7 @@ const Map = () => {
   });
 
   const userLocationIcon2 = new L.Icon({
-    iconUrl: iconUrl2,
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/3082/3082383.png',
     iconSize: [50, 50],
   });
 
