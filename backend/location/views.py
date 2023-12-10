@@ -53,24 +53,29 @@ class NearestLocationView(APIView):
         lat = float(request.data['lat'])
         lon = float(request.data['lon'])
         spot = request.data['spot']
-        print(lat,lon)
+        print(lat, lon)
         user_coordinates = Point(lon, lat, srid=4326)  # Assuming WGS 84 coordinate system
-        nearest_location = Location2.objects.filter(category=spot).annotate(
+        nearest_locations = Location2.objects.filter(category=spot).annotate(
             distance=functions.Distance('coordinates', user_coordinates)
-        ).order_by('distance').first()
-        
-        if nearest_location is not None:
-            # Calculate the distance in kilometers
-            distance_km = nearest_location.distance.km
-            # Create a dictionary containing both the Location2 instance and the distance
-            serialized_data = {'instance': nearest_location, 'distance_km': distance_km}
+        ).order_by('distance')[:10]
+
+        if nearest_locations:
+            # Create a list to store serialized data for each location
+            serialized_data_list = []
+            for location in nearest_locations:
+                # Calculate the distance in kilometers for each location
+                distance_km = location.distance.km
+                # Create a dictionary containing both the Location2 instance and the distance
+                serialized_data = {'instance': location, 'distance_km': distance_km}
+                serialized_data_list.append(serialized_data)
 
             # Serialize the data and return it as a response
-            serializer = LocationSerializer(serialized_data)
+            serializer = LocationSerializer(serialized_data_list, many=True)
             return Response(serializer.data)
         else:
             # Handle the case when no nearest location is found
             return Response({'detail': 'No locations found'}, status=404)
+
 
 class CheckParkingZoneView(APIView):
     
