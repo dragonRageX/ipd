@@ -11,6 +11,8 @@ import Home from "./pages/Home"
 import Register from "./pages/Register";
 import LoginPage from './pages/Login';
 import NotFound from "./pages/NotFound"
+import Map from "./pages/Map";
+import AddLocationPage from "./pages/Addparklocation";
 
 let router = createBrowserRouter(createRoutesFromElements(
    <Route path="/" element={<Layout />}>
@@ -18,6 +20,8 @@ let router = createBrowserRouter(createRoutesFromElements(
       <Route path="register" element={<Register />} />
       <Route path="login" element={<LoginPage />} />
       <Route path="features" element={<Home />} />
+      <Route path="map" element={<Map />}/>
+      <Route path="addlocation" element={<AddLocationPage />}/>
       <Route path="*" element={<NotFound />} />
    </Route>
 ))

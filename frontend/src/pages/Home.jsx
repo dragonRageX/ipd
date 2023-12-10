@@ -6,9 +6,7 @@ import home_page_pic from "../images/home_page_pic.png"
 const Home_page = () => {
 
   const blogData1 = [
-    { title: '𝙲𝚞𝚛𝚛𝚎𝚗𝚝 𝙻𝚘𝚌𝚊𝚝𝚒𝚘𝚗', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-    { title: '𝙰𝚗𝚝𝚒-𝚃𝚑𝚎𝚏𝚝', content: 'Nulla et elit eu nisl laoreet volutpat vel ac elit.' },
-    { title: '𝙰𝚍𝚍 𝙿𝚊𝚛𝚔𝚒𝚗𝚐 𝚉𝚘𝚗𝚎𝚜', content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { title: '𝙰𝚍𝚍 𝙿𝚊𝚛𝚔𝚒𝚗𝚐 𝚉𝚘𝚗𝚎𝚜', content: 'add any parking station which you feel is not there in our database ' },
     // { title: 'Post 3', content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
     // { title: 'Post 3', content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
 
@@ -16,8 +14,8 @@ const Home_page = () => {
   ];
 
   const blogData2 = [
-    { title: '𝙽𝚎𝚊𝚛𝚎𝚜𝚝 𝙿𝚊𝚛𝚔𝚒𝚗𝚐 𝚉𝚘𝚗𝚎', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-    { title: '𝙰𝚗𝚊𝚕𝚢𝚜𝚒𝚜', content: 'Nulla et elit eu nisl laoreet volutpat vel ac elit.' },
+    { title: '𝙽𝚎𝚊𝚛𝚎𝚜𝚝 𝙿𝚊𝚛𝚔𝚒𝚗𝚐 𝚉𝚘𝚗𝚎', content: 'click her and you will be guided to the nearest parking location ' },
+    { title: '𝙰𝚗𝚊𝚕𝚢𝚜𝚒𝚜', content: 'this will shows how much you travel with you vehicle what was yout average speed ..... ' },
     { title: ' ', content: ' ' },
     // { title: 'Post 3', content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
     // { title: 'Post 3', content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
