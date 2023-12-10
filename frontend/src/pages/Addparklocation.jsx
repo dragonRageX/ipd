@@ -10,7 +10,7 @@ const AddLocationPage = () => {
   const [formData, setFormData] = useState({
     name: '',
     category: '',
-    coordinates: [19.182381002086892,72.85872142939337,],
+    coordinates: '',
   });
 
   const handleMapClick = (e) => {
@@ -29,17 +29,13 @@ const AddLocationPage = () => {
         user: 1,
       });
 
-      // Handle the response as needed
       if (response.status === 200) {
-        // Successfully added location
         console.log('Location added successfully');
         navigate.push('/map');
       } else {
-        // Handle errors
         console.error('Error adding location');
       }
     } catch (error) { 
-      // Handle errors from the Axios request
       console.error('Error making API request:', error.message);
     }
   };
@@ -78,6 +74,16 @@ const AddLocationPage = () => {
             type="text"
             value={formData.category}
             onChange={(e) => setFormData((prevData) => ({ ...prevData, category: e.target.value }))}
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+        coordinates:
+          <input
+            type="text"
+            value={formData.coordinates}
+            onChange={(e) => setFormData((prevData) => ({ ...prevData, coordinates: e.target.value }))}
           />
         </label>
       </div>
