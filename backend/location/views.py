@@ -63,17 +63,12 @@ class NearestLocationView(APIView):
             # Create a list to store serialized data for each location
             serialized_data_list = []
             for location in nearest_locations:
-                # Calculate the distance in kilometers for each location
                 distance_km = location.distance.km
-                # Create a dictionary containing both the Location2 instance and the distance
                 serialized_data = {'instance': location, 'distance_km': distance_km}
                 serialized_data_list.append(serialized_data)
-
-            # Serialize the data and return it as a response
             serializer = LocationSerializer(serialized_data_list, many=True)
             return Response(serializer.data)
         else:
-            # Handle the case when no nearest location is found
             return Response({'detail': 'No locations found'}, status=404)
 
 
