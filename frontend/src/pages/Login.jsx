@@ -1,69 +1,72 @@
-import React, { Component } from 'react';
+import React from "react"
+import { FaSignInAlt } from "react-icons/fa"
+// import axios from "axios";
+import { useNavigate } from "react-router-dom"
+// import utilsContext from "../context/utilsContext";
+// import { toast } from "react-toastify";
 
-class LoginPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      loggedIn: false,
-      error: '',
-    }; 
-  } 
+export default function Login()
+{
+    let [formData, setFormData] = React.useState({
+        email: "",
+        password: "",
+    });
 
-  handleUsernameChange = (event) => {
-    this.setState({ username: event.target.value });
-  };
+    const navigate = useNavigate();
 
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
-  };
-
-  handleLogin = () => {
-    const { username, password } = this.state;
-
-    // Simulate a login check (You should replace this with your actual login logic)
-    if (username === 'yourUsername' && password === 'yourPassword') {
-      this.setState({ loggedIn: true, error: '' });
-    } else {
-      this.setState({ loggedIn: false, error: 'Invalid username or password' });
+    function handleChange(e)
+    {
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [e.target.name]: e.target.value
+        }));
     }
-  };
 
-  render() {
-    const { username, password, loggedIn, error } = this.state;
-
-    // If the user is logged in, display a success message
-    if (loggedIn) {
-      return <div>Welcome, {username}! You are now logged in.</div>;
+    async function handleSubmit(e)
+    {
+        e.preventDefault();
+        console.log("Login Form Submitted!");
     }
 
     return (
-      <div>
-        <h2>Login Page</h2>
-        <div>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={this.handleUsernameChange}
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={this.handlePasswordChange}
-          />
-        </div>
-        <div>
-          <button onClick={this.handleLogin}>Login</button>
-        </div>
-        <div style={{ color: 'red' }}>{error}</div>
-      </div>
+        <>
+            <section className="heading">
+                <h1>
+                    <FaSignInAlt /> Login
+                </h1>
+                <p>Login to keep a check on your vehicle!</p>
+            </section>
+            <section className="form">
+                <form onSubmit={(e) => handleSubmit(e)}>
+                    <div className="form-group">
+                        <input 
+                            type="email" 
+                            className="form-control" 
+                            id="email" 
+                            name="email"
+                            value={formData.email} 
+                            placeholder="Enter your email" 
+                            onChange={(e) => handleChange(e)} 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <input 
+                            type="password" 
+                            className="form-control" 
+                            id="password" 
+                            name="password" 
+                            value={formData.password} 
+                            placeholder="Enter password" 
+                            onChange={(e) => handleChange(e)} 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <button type="submit" className="btn btn-block">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </>
     );
-  }
 }
-
-export default LoginPage;
