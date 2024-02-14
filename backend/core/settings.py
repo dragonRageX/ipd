@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # CORS_CONFIGURATIONS
 CORS_ORIGIN_ALLOW_ALL = True
@@ -38,11 +38,12 @@ INSTALLED_APPS = [
     'channels',
     'daphne',
     'django.contrib.admin',
+    'django.contrib.gis',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles',    
     #installed apps(libraries)
     'rest_framework',
     'rest_framework.authtoken',
@@ -96,12 +97,31 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',  # If using PostGIS
+        'NAME': 'IPD_DB',
+        'USER': 'postgres',
+        'PASSWORD': '3103',
+        'HOST': 'localhost',  # Use your hostname or IP address here
+        'PORT': 5432,  # PostgreSQL default port
     }
 }
+
+
+if os.name == 'nt':
+    VIRTUAL_ENV_BASE = os.environ['VIRTUAL_ENV']
+    os.environ['PATH'] = os.path.join(VIRTUAL_ENV_BASE, r'.\Lib\site-packages\osgeo') + ';' + os.environ['PATH']
+    os.environ['PROJ_LIB'] = os.path.join(VIRTUAL_ENV_BASE, r'.\Lib\site-packages\osgeo\data\proj') + ';' + os.environ['PATH']
+# GDAL_LIBRARY_PATH = 'C:\OSGeo4W64\bin\gdal308'
+
 
 
 # Password validation
