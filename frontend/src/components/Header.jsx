@@ -22,10 +22,10 @@ const Header = () => {
               <NavLink className="nav-link" to="/login" style={({isActive}) => isActive ? activeStyles : null}>Login</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link active" aria-current="page" to="/addlocation" style={({isActive}) => isActive ? activeStyles : null}>Add Parking Spot</NavLink>
+              <NavLink className="nav-link" to="/addlocation" style={({isActive}) => isActive ? activeStyles : null}>Add Parking Spot</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" aria-disabled="true" to="/features" style={({isActive}) => isActive ? activeStyles : null}>Features</NavLink>
+              <NavLink className="nav-link" to="/features" style={({isActive}) => isActive ? activeStyles : null}>Features</NavLink>
             </li>
           </ul>
         </div>
