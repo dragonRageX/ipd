@@ -2,6 +2,7 @@ import '../style.css'; // or import './styles.scss';
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
 
 import home_page_pic from "../images/home_page_pic.png"
+import { Link } from 'react-router-dom';
 
 const Home_page = () => {
 
@@ -183,12 +184,13 @@ const Home_page = () => {
       <i className='bx bx-code-alt' ></i>
       
         {blogData1.map((blog, index) => (
+            <Link to = "/addlocation">
           <div key={index} className="blog-post">
             
             <h3 className="post-title">{blog.title}</h3>
             <p className="post-content">{blog.content}</p>
-           
           </div>
+          </Link>
           
         ))}
         

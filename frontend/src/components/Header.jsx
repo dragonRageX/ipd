@@ -19,13 +19,19 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink className="nav-link active" aria-current="page" to="/map" style={({isActive}) => isActive ? activeStyles : null}>map</NavLink>
+              <NavLink className="nav-link active" aria-current="page" to="/map" style={({isActive}) => isActive ? activeStyles : null}>Map</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/login" style={({isActive}) => isActive ? activeStyles : null}>login</NavLink>
+              <NavLink className="nav-link" to="/login" style={({isActive}) => isActive ? activeStyles : null}>Login</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/register" style={({isActive}) => isActive ? activeStyles : null}>Register</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" aria-disabled="true" to="/features" style={({isActive}) => isActive ? activeStyles : null}>Features</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/addlocation" style={({isActive}) => isActive ? activeStyles : null}>Add a New Spot</NavLink>
             </li>
           </ul>
         </div>
