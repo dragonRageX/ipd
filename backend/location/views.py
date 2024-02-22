@@ -15,7 +15,7 @@ from django.contrib.gis.measure import Distance
 from .models import Location2, LocationByUser
 
 
-# Create your views here.
+# view to load the dataset in database through CSV 
 class LoadCSV(GenericAPIView):
     serializer_class = LoadCSVSerializer
 
@@ -81,6 +81,8 @@ class LoadCSV(GenericAPIView):
 #         else:
 #             # Handle the case when no nearest location is found
 #             return Response({'detail': 'No locations found'}, status=404)
+
+# get the data of nearest location based on the spot(bus stop, parking spot, no parking spot)
 class NearestLocationView(APIView):
     def post(self, request):
         print(request.data["lat"])
@@ -117,7 +119,7 @@ class NearestLocationView(APIView):
             # Handle the case when no nearest location is found
             return Response({"detail": "No locations found"}, status=404)
 
-
+# view to get location from sensors(iot)
 class GetLocationView(APIView):
     def post(self, request):
         try:
@@ -143,16 +145,14 @@ class GetLocationView(APIView):
             return Response({"message": "Expection error", "error": str(e)}, status=500)
 
 
+# to check whether user is in parking zone or not 
 class CheckParkingZoneView(APIView):
-
     def post(self, request):
-
         lon = float(request.data["lon"])
         lat = float(request.data["lat"])
         user_coordinates = Point(lon, lat, srid=4326)
         max_distance_meters = 8
-
-        # Check if the user's location is within the no parking zone
+        #Check if the user's location is within the no parking zone
         in_no_parking_zone = Location2.objects.filter(
             category="bus_stop",
             coordinates__distance_lte=(
@@ -166,16 +166,14 @@ class CheckParkingZoneView(APIView):
         else:
             return Response({"status": "in parking zone"}, status=200)
 
-
+# data from user if user has a location not in  database add it to db and then get info about that place
 class LocationByUserAPIView(GenericAPIView):
     queryset = LocationByUser.objects.all()
     serializer_class = LocationByUserSerializer
-
     def get(self, request):
         locations = LocationByUser.objects.all()
         serializer = LocationByUserSerializer(locations, many=True)
         return Response(serializer.data, status=200)
-
     def post(self, request):
         serializer = LocationByUserSerializer(data=request.data)
         if serializer.is_valid():
