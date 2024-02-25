@@ -1,7 +1,8 @@
 from django.db import models
+from django.contrib.gis.db import models
 from .managers import UserManager
 from django.contrib.auth.models import AbstractBaseUser
-
+from django.contrib.gis.geos import Point
 # Create your models here.
 
 
@@ -21,7 +22,7 @@ class User(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     is_email_verified = models.BooleanField(default=False)
     objects = UserManager()
-
+    user_vehicle_location = models.PointField(spatial_index = True,default=None,null=True,blank=True)
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email"]
 
@@ -46,3 +47,10 @@ class User(AbstractBaseUser):
 
     def is_verified(self):
         return self.is_email_verified
+    
+    def get_vehicle_location(self):
+        return self.user_vehicle_location
+
+    def update_vehicle_location(self, lon, lat):
+        self.user_vehicle_location = Point(lon, lat, srid=4326)
+        self.save()
