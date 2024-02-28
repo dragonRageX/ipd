@@ -27,6 +27,9 @@ const Header = () => {
             <li className="nav-item">
               <NavLink className="nav-link" to="/features" style={({isActive}) => isActive ? activeStyles : null}>Features</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" aria-current="page" to="/addlocation" style={({isActive}) => isActive ? activeStyles : null}>Add a New Spot</NavLink>
+            </li>
           </ul>
         </div>
       </div>

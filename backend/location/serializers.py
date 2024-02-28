@@ -8,6 +8,9 @@ class LoadCSVSerializer(serializers.Serializer):
     csv = serializers.FilePathField(path='csv/')
     category = serializers.CharField()
     
+class GetLocationSerializer(serializers.Serializer):
+    lat = serializers.FloatField()
+    lon = serializers.FloatField()
     
 class LocationByUserSerializer(serializers.ModelSerializer):
     class Meta:
