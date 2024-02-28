@@ -2,7 +2,7 @@ import '../style.css'; // or import './styles.scss';
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
 
 import home_page_pic from "../images/home_page_pic.png"
-import { Link } from 'react-router-dom';
+import Map from './Map';
 
 const Home_page = () => {
 
@@ -43,17 +43,7 @@ const Home_page = () => {
         </div>
       </div>
       <div id="map">
-        <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-          <Marker position={[51.505, -0.09]}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </MapContainer>
+        <Map />
       </div>
        {/* <div className='features'>
   <h4>𝑭𝒆𝒂𝒕𝒖𝒓𝒆𝒔 𝑾𝒆 𝑷𝒓𝒐𝒗𝒊𝒅𝒆</h4>
