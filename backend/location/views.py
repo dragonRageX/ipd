@@ -25,6 +25,13 @@ import json
 User = get_user_model()
 
 
+def is_dist_btw_points_greater(point1,point2,dist):
+    distance_result = point1.distance(point2)
+    if distance_result >= dist:
+        return True
+    else: 
+        return False
+
 # view to load the dataset in database through CSV
 class LoadCSV(GenericAPIView):
     serializer_class = LoadCSVSerializer
@@ -44,9 +51,7 @@ class NearestLocationView(APIView):
             user = User.objects.get(id=1)
             user_vehicle_coordinates = user.get_vehicle_location()
             user_location = geocoder.ip("me").latlng
-            user_coordinates_gps = Point(
-                user_location[1], user_location[0], srid=4326
-            ) 
+            user_coordinates_gps = Point(user_location[1], user_location[0], srid=4326)
             nearest_locations = (
                 Location2.objects.filter(category=spot)
                 .annotate(
@@ -117,26 +122,48 @@ class GetLocationThroughSensorView(APIView):
 
 # to check whether user is in parking zone or not
 class CheckParkingZoneView(APIView):
-    def post(self, request):
-        lon = float(request.data["lon"])
-        lat = float(request.data["lat"])
-        user_coordinates = Point(lon, lat, srid=4326)
-        max_distance_meters = 8
-        # Check if the user's location is within the no parking zone
-        in_no_parking_zone = Location2.objects.filter(
-            category="bus_stop",
-            coordinates__distance_lte=(
-                user_coordinates,
-                Distance(m=max_distance_meters),
-            ),
-        ).exists()
+    def get(self, request):
+        try:
+            user = User.objects.get(id=1)
+            user_vehicle_coordinates = user.get_vehicle_location()
+            user_location = geocoder.ip("me").latlng
+            user_coordinates = Point(user_location[1], user_location[0], srid=4326)
+            max_distance_meters = 8
+            # Check if the user's location is within the no parking zone
+            print(user_coordinates)
+            if is_dist_btw_points_greater(user_vehicle_coordinates,user_coordinates,15):
+                return Response({"message":"antitheft alert"},status=status.HTTP_400_BAD_REQUEST)
+            near_bus_stop = Location2.objects.filter(
+                category="bus_stop",
+                coordinates__distance_lte=(
+                    user_coordinates,
+                    Distance(m=max_distance_meters),
+                ),
+            ).exists()
+            in_parking_zone = Location2.objects.filter(
+                category="parking_stop",
+                coordinates__distance_lte=(
+                    user_coordinates,
+                    Distance(m=10),
+                ),
+            ).exists()
+            print(near_bus_stop, in_parking_zone)
+            if near_bus_stop:
+                return Response(
+                    {"status": "In no parking zone"}, status=status.HTTP_200_OK
+                )
+            elif in_parking_zone:
+                return Response(
+                    {"status": "parking area nearby"}, status=status.HTTP_200_OK
+                )
+            else:
+                return Response({"status": "in normal zone"}, status=status.HTTP_200_OK)
 
-        if in_no_parking_zone:
-            return Response({"status": "In no parking zone"}, status=status.HTTP_200_OK)
-        else:
-            return Response({"status": "in parking zone"}, status=status.HTTP_200_OK)
-
-
+        except Exception as e:
+            return Response(
+                {"status": "Error occured", "error": str(e)},
+                status=status.HTTP_501_NOT_IMPLEMENTED,     
+            )
 # data from user if user has a location not in  database add it to db and then get info about that place
 class LocationByUserAPIView(GenericAPIView):
     queryset = LocationByUser.objects.all()
